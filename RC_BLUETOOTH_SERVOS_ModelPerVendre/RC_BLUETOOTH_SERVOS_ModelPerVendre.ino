@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include "BluetoothSerial.h"
 #include <esp_now.h>
 #include <ESP32Servo.h>
@@ -8,10 +9,10 @@
 
 BluetoothSerial SerialBT;
 
-const int Mesq = 2; //M1 motor esquerre
-const int Mdrt = 10; //M2 motor dret
-const int V = 135; //angle per anar endavant
-const int R = 45; //angle per anar endarrere
+const int Mesq = 25; //M1 motor esquerre
+const int Mdrt = 26; //M2 motor dret
+const int V = 180; //angle per anar endavant
+const int R = 0; //angle per anar endarrere
 
 const char nn='W'; //endavant
 const char ss='S'; //endarrere
@@ -25,17 +26,17 @@ Servo servoMotorl; // servo esquerre
 Servo servoMotorr; // servo dret
 
 void endavant (){
-  servoMotorl.write(R);
-  servoMotorr.write(V);
-}
-
-void endarrere (){
   servoMotorl.write(V);
   servoMotorr.write(R);
 }
 
-void dreta (){
+void endarrere (){
   servoMotorl.write(R);
+  servoMotorr.write(V);
+}
+
+void dreta (){
+  servoMotorl.write(V);
   servoMotorr.write(90);
 }
 
@@ -56,8 +57,7 @@ void setup() {
   Serial.println("Consola activada.");
   SerialBT.begin("ESP32test"); //Bluetooth device name
   Serial.println("The device started, now you can pair it with bluetooth!");
-  pinMode(Mesq,OUTPUT);
-  pinMode(Mdrt,OUTPUT);
+  
   servoMotorl.attach(Mesq); 
   servoMotorr.attach(Mdrt); 
  
