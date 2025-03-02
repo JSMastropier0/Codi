@@ -1,7 +1,6 @@
 #include "Arduino.h"
 #include "BluetoothSerial.h"
-#include <esp_now.h>
-#include <ESP32Servo.h>
+#include <Servo.h>
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
@@ -11,8 +10,8 @@ BluetoothSerial SerialBT;
 
 const int Mesq = 25; //M1 motor esquerre
 const int Mdrt = 26; //M2 motor dret
-const int V = 180; //angle per anar endavant
-const int R = 0; //angle per anar endarrere
+const int V = 135; //angle per anar endavant
+const int R = 45; //angle per anar endarrere
 
 const char nn='W'; //endavant
 const char ss='S'; //endarrere
@@ -57,9 +56,10 @@ void setup() {
   Serial.println("Consola activada.");
   SerialBT.begin("ESP32test"); //Bluetooth device name
   Serial.println("The device started, now you can pair it with bluetooth!");
+
   
-  servoMotorl.attach(Mesq); 
-  servoMotorr.attach(Mdrt); 
+  servoMotorl.attach(Mesq,Servo::CHANNEL_NOT_ATTACHED,0,180,1000,2000,50); 
+  servoMotorr.attach(Mdrt,Servo::CHANNEL_NOT_ATTACHED,0,180,1000,2000,50); 
  
 }
 
