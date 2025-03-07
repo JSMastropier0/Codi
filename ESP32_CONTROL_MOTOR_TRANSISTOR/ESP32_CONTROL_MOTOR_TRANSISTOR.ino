@@ -1,7 +1,7 @@
 /* Control Speed of a DC Motor from serial monitor
    More info: http://www.ardumotive.com/how-to-drive-a-dc-motor-with-transistor.html
    Dev: Vasilakis Michalis // Date: 13/7/2015 // www.ardumotive.com */
-
+#include "Arduino.h"
 //Transistor 'Base' pin or input pin of motor driver ic to Arduino PWM Digital Pin 3
 const int motorPin = 3;
 
