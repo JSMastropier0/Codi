@@ -34,7 +34,7 @@ int previ=0;
 typedef struct struct_message {
   char dir;
   char bRota;
-  int bSerra=2;
+  int bSerra=0;
 } struct_message;
 
 struct_message myData;
@@ -151,7 +151,7 @@ void rotaEsquerra (){
 
 void setup() {
   Serial.begin(115200);
-  while(!Serial);
+ // while(!Serial);
   Serial.println("Consola activada.");
   Serial.println("Funcionant, esperant dades");
   pinMode(M1Fwd,OUTPUT);
@@ -244,18 +244,20 @@ void loop() {
     
     }
     if (myData.bSerra ==1 ){
+      if (previ !=1){
+        digitalWrite(Srr,HIGH);
+        Serial.write("Activem Serra");
+        Serial.write("\n");
+      }
       previ=1;
-      digitalWrite(Srr,HIGH);
-      Serial.write("Activem Serra");
-      Serial.write("\n");
-      
     }
     else if (myData.bSerra==0 ){
+      if (previ !=0) {
+        digitalWrite(Srr,LOW);
+        Serial.write("Aturem Serra");
+        Serial.write("\n");
+      }      
       previ=0;
-      digitalWrite(Srr,LOW);
-      Serial.write("Aturem Serra");
-      Serial.write("\n");
-      
     }
   
   delay(20);
